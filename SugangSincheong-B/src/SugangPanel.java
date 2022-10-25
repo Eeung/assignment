@@ -8,6 +8,7 @@ public class SugangPanel extends JPanel {
 	public SugangPanel() {
 		setBackground(Color.GRAY);
 		setLayout(null);
+
 	}
 
 }
