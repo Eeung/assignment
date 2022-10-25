@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class SugangPanel extends JPanel {
 
 	public SugangPanel() {
-		setBackground(Color.GRAY);
+		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
 
 	}
