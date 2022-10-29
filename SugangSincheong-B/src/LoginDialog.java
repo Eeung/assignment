@@ -62,20 +62,20 @@ public class LoginDialog extends JDialog implements ActionListener {
 
 		JPanel ID = new JPanel();
 		ID.setLayout(new BorderLayout());
-		IDlabel = new JLabel("          아이디:           ");
+		IDlabel = new JLabel("           아이디:           ");
 		ID.add(IDlabel, BorderLayout.WEST);
 		IDinput = new JTextField();
 		ID.add(IDinput);
-		ID.add(new JLabel("          "), BorderLayout.EAST);
+		ID.add(new JLabel("           "), BorderLayout.EAST);
 		loginPg.add(ID);
 
 		JPanel PW = new JPanel();
 		PW.setLayout(new BorderLayout());
-		PWlabel = new JLabel("          비밀번호:       ");
+		PWlabel = new JLabel("           비밀번호:       ");
 		PW.add(PWlabel, BorderLayout.WEST);
 		PWinput = new JPasswordField();
 		PW.add(PWinput);
-		PW.add(new JLabel("          "), BorderLayout.EAST);
+		PW.add(new JLabel("           "), BorderLayout.EAST);
 		loginPg.add(PW);
 
 		// 아이디, 비밀번호 입력문자 수 제한
