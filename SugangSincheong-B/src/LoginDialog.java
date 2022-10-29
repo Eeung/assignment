@@ -1,3 +1,6 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -48,28 +51,32 @@ public class LoginDialog extends JDialog implements ActionListener {
 	public LoginDialog() {
 		setTitle("로그인");
 		setModal(true);
-		setSize(640, 360);
-		setResizable(false);
+		setSize(640, 400);
+		setMinimumSize(new Dimension(640, 400));
 
 		// 로그인 페이지 설정
 		loginPg = new JPanel();
 		add(loginPg);
-		loginPg.setLayout(null);
-		// loginPg.setBackground(Color.CYAN);
+		loginPg.setLayout(new GridLayout(5, 1, 0, 40));
+		loginPg.add(new JPanel());
 
-		IDlabel = new JLabel("아이디: ");
-		IDlabel.setBounds(140, 80, 100, 30);
-		loginPg.add(IDlabel);
-		PWlabel = new JLabel("비밀번호: ");
-		PWlabel.setBounds(140, 130, 100, 30);
-		loginPg.add(PWlabel);
-
+		JPanel ID = new JPanel();
+		ID.setLayout(new BorderLayout());
+		IDlabel = new JLabel("          아이디:           ");
+		ID.add(IDlabel, BorderLayout.WEST);
 		IDinput = new JTextField();
-		IDinput.setBounds(200, 81, 300, 28);
-		loginPg.add(IDinput);
+		ID.add(IDinput);
+		ID.add(new JLabel("          "), BorderLayout.EAST);
+		loginPg.add(ID);
+
+		JPanel PW = new JPanel();
+		PW.setLayout(new BorderLayout());
+		PWlabel = new JLabel("          비밀번호:       ");
+		PW.add(PWlabel, BorderLayout.WEST);
 		PWinput = new JPasswordField();
-		PWinput.setBounds(200, 131, 300, 28);
-		loginPg.add(PWinput);
+		PW.add(PWinput);
+		PW.add(new JLabel("          "), BorderLayout.EAST);
+		loginPg.add(PW);
 
 		// 아이디, 비밀번호 입력문자 수 제한
 		IDinput.addKeyListener(new KeyAdapter() {
@@ -90,6 +97,8 @@ public class LoginDialog extends JDialog implements ActionListener {
 		confirm = new JButton("로그인");
 		confirm.setBounds(270, 215, 100, 50);
 		loginPg.add(confirm);
+
+		loginPg.add(new JPanel());
 
 		confirm.setActionCommand("tryLogin");
 		confirm.addActionListener(this);

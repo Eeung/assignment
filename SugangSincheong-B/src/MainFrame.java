@@ -58,9 +58,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		logD = new LoginDialog();
 		// setEnabled(false);
 
-		welcome.setText(logD.name + "´Ô, È¯¿µÇÕ´Ï´Ù.");
-		LoginB.setText("·Î±×¾Æ¿ô");
-		LoginB.setActionCommand("doLogout");
+		if (logD.name != null) {
+			welcome.setText(logD.name + "´Ô, È¯¿µÇÕ´Ï´Ù.");
+			LoginB.setText("·Î±×¾Æ¿ô");
+			LoginB.setActionCommand("doLogout");
+		}
 	}
 
 	public void showClassPage() {
