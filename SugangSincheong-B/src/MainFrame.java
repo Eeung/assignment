@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import login.LoginDialog;
+
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
 	private LoginDialog logD;

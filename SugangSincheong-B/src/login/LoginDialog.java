@@ -1,3 +1,5 @@
+package login;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -14,22 +16,21 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import register.SignupDialog;
+
 @SuppressWarnings("serial")
 public class LoginDialog extends JDialog implements ActionListener {
 
 	private SLogin sLogin;
-	private JPanel loginPg;
-	private JLabel IDlabel, PWlabel;
 	private JTextField IDinput, PWinput;
-	private JButton confirm;
-	protected String name = null;
+	public String name = null;
 
 	// 로그인 성공 및 실패
 	public String login() {
 		String id = IDinput.getText();
 
 		String password = PWinput.getText();
-		this.sLogin = new SLogin();
+		sLogin = new SLogin();
 
 		String str = sLogin.login(id, password);
 
@@ -55,14 +56,14 @@ public class LoginDialog extends JDialog implements ActionListener {
 		setMinimumSize(new Dimension(640, 400));
 
 		// 로그인 페이지 설정
-		loginPg = new JPanel();
+		JPanel loginPg = new JPanel();
 		add(loginPg);
 		loginPg.setLayout(new GridLayout(5, 1, 0, 40));
 		loginPg.add(new JPanel());
 
 		JPanel ID = new JPanel();
 		ID.setLayout(new BorderLayout());
-		IDlabel = new JLabel("           아이디:           ");
+		JLabel IDlabel = new JLabel("           아이디:           ");
 		ID.add(IDlabel, BorderLayout.WEST);
 		IDinput = new JTextField();
 		ID.add(IDinput);
@@ -71,7 +72,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 
 		JPanel PW = new JPanel();
 		PW.setLayout(new BorderLayout());
-		PWlabel = new JLabel("           비밀번호:       ");
+		JLabel PWlabel = new JLabel("           비밀번호:       ");
 		PW.add(PWlabel, BorderLayout.WEST);
 		PWinput = new JPasswordField();
 		PW.add(PWinput);
@@ -82,7 +83,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 		IDinput.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent ke) {
 				JTextField src = (JTextField) ke.getSource();
-				if (src.getText().length() >= 10)
+				if (src.getText().length() >= 15)
 					ke.consume();
 			}
 		});
@@ -94,14 +95,21 @@ public class LoginDialog extends JDialog implements ActionListener {
 			}
 		});
 
-		confirm = new JButton("로그인");
-		confirm.setBounds(270, 215, 100, 50);
-		loginPg.add(confirm);
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new BorderLayout(5, 0));
+		loginPg.add(buttons);
 
-		loginPg.add(new JPanel());
-
+		JButton confirm = new JButton("로그인");
 		confirm.setActionCommand("tryLogin");
 		confirm.addActionListener(this);
+		buttons.add(confirm);
+
+		JButton register = new JButton("회원가입");
+		register.setActionCommand("signUp");
+		register.addActionListener(this);
+		buttons.add(register, BorderLayout.EAST);
+
+		loginPg.add(new JPanel());
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -117,6 +125,9 @@ public class LoginDialog extends JDialog implements ActionListener {
 			if (inform != null) {
 				name = inform;
 			}
+			break;
+		case "signUp":
+			new SignupDialog();
 			break;
 		}
 	}

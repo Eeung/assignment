@@ -1,3 +1,5 @@
+package login;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +13,7 @@ public class EAccount {
 	public EAccount() {
 		try {
 			File file = new File("data/account.txt");
-			bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+			bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
