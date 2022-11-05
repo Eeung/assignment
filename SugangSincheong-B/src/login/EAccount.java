@@ -2,9 +2,8 @@ package login;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class EAccount {
@@ -13,7 +12,7 @@ public class EAccount {
 	public EAccount() {
 		try {
 			File file = new File("data/account.txt");
-			bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			bufReader = new BufferedReader(new FileReader(file));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
