@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class DirectoryPanel extends JPanel {
 	PDirectory campus, college, department;
 	DefaultTableModel classModel;
-	String header[] = { "수업명", "교수명", "학점", "시간표" };
+	String header[] = { "강좌코드", "수업명", "교수명", "학점", "시간표" };
 	String miniheader[] = { "수업명", "시간표" };
 
 	public DirectoryPanel() {
