@@ -1,4 +1,4 @@
-package register;
+package Account;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,11 +22,20 @@ public class SignupDialog extends JDialog implements ActionListener {
 	private JTextField[] informations = new JTextField[3];
 
 	private void signup() {
-		String info = "";
-		for (int i = 0; i < informations.length; i++) {
-			info += informations[i].getText() + " ";
+		for (JTextField input : informations) {
+			if (input.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "아직 적지않은 정보가 있으니 확인 부탁드립니다.");
+				return;
+			}
 		}
-		new RGAccount(info);
+		SRegister sRegister = new SRegister();
+		if (sRegister.idDuplicationTest(IDinput.getText())) {
+			sRegister.signup(informations);
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "이미 있는 아이디입니다.");
+			IDinput.setText("");
+		}
 	}
 
 	public SignupDialog() {
@@ -96,7 +106,6 @@ public class SignupDialog extends JDialog implements ActionListener {
 		switch (actionCommand) {
 		case "signUp":
 			signup();
-			dispose();
 			break;
 		}
 	}

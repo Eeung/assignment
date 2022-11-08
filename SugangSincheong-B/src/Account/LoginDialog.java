@@ -1,4 +1,4 @@
-package login;
+package Account;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,8 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import register.SignupDialog;
 
 @SuppressWarnings("serial")
 public class LoginDialog extends JDialog implements ActionListener {

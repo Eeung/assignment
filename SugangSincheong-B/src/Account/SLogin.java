@@ -1,4 +1,4 @@
-package login;
+package Account;
 public class SLogin {
 
 	public SLogin() {

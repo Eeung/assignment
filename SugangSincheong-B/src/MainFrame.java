@@ -10,13 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import login.LoginDialog;
+import Account.LoginDialog;
+import directory.DirectoryPanel;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
 	private LoginDialog logD;
 	private JPanel mainPg, preface;
-	private SugangPanel sugangPg;
+	private DirectoryPanel sugangPg;
 	private JLabel welcome;
 	private JButton LoginB;
 	private Dimension window = new Dimension();
@@ -40,8 +41,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		preface.setLocation(0, 0);
 		preface.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-		showClassPage();
-
 		welcome = new JLabel("로그인이 필요합니다.");
 		preface.add(welcome);
 
@@ -64,11 +63,12 @@ public class MainFrame extends JFrame implements ActionListener {
 			welcome.setText(logD.name + "님, 환영합니다.");
 			LoginB.setText("로그아웃");
 			LoginB.setActionCommand("doLogout");
+			showClassPage();
 		}
 	}
 
 	public void showClassPage() {
-		sugangPg = new SugangPanel();
+		sugangPg = new DirectoryPanel();
 		mainPg.add(sugangPg, BorderLayout.CENTER);
 	}
 
