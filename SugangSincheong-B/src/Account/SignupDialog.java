@@ -24,7 +24,7 @@ public class SignupDialog extends JDialog implements ActionListener {
 	private void signup() {
 		for (JTextField input : informations) {
 			if (input.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "아직 적지않은 정보가 있으니 확인 부탁드립니다.");
+				JOptionPane.showMessageDialog(null, "입력하지 않은 정보가 있습니다. 다시 한번 확인 부탁드립니다.");
 				return;
 			}
 		}

@@ -21,7 +21,7 @@ public class DirectoryPanel extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new GridLayout(1, 2));
 		JPanel directory = new JPanel();
-		directory.setLayout(new GridLayout(2, 1, 10, 10));
+		directory.setLayout(new GridLayout(2, 1));
 		add(directory);
 
 		JPanel ChooseBeforeLecture = new JPanel();
@@ -44,11 +44,11 @@ public class DirectoryPanel extends JPanel {
 		directory.add(classScroll);
 
 		JPanel sinCheong = new JPanel();
-		sinCheong.setLayout(new GridLayout(1, 2, 10, 10));
+		sinCheong.setLayout(new GridLayout(1, 2));
 		add(sinCheong);
 
 		JPanel basket = new JPanel();
-		basket.setLayout(new BorderLayout(10, 10));
+		basket.setLayout(new BorderLayout());
 		sinCheong.add(basket);
 
 		DefaultTableModel basketModel = new DefaultTableModel(miniheader, 0);
@@ -65,7 +65,7 @@ public class DirectoryPanel extends JPanel {
 		toFromBasket.add(takeFromBasket);
 
 		JPanel succeed = new JPanel();
-		succeed.setLayout(new BorderLayout(10, 10));
+		succeed.setLayout(new BorderLayout());
 		sinCheong.add(succeed);
 
 		DefaultTableModel succeedModel = new DefaultTableModel(miniheader, 0);

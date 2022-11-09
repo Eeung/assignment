@@ -8,6 +8,7 @@ import java.util.Vector;
 
 public class EDirectory {
 
+	@SuppressWarnings("resource")
 	public Vector<VDirectory> getDirectories(String fileName) {
 		Vector<VDirectory> vDirectories = new Vector<VDirectory>();
 		try {

@@ -85,6 +85,8 @@ public class MainFrame extends JFrame implements ActionListener {
 			welcome.setText("로그인이 필요합니다.");
 			LoginB.setText("로그인");
 			LoginB.setActionCommand("intoLoginPage");
+			sugangPg.setVisible(false);
+			mainPg.remove(sugangPg);
 			break;
 		}
 	}
