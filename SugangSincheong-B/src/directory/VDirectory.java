@@ -1,16 +1,24 @@
 package directory;
 
 public class VDirectory {
-	private String id, name, fileName;
+	private String code, name, fileName;
+	private String[] information = null;
 
-	public VDirectory(String ID, String Name, String FileName) {
-		id = ID;
+	public VDirectory(String Code, String Name, String FileName) {
+		code = Code;
 		name = Name;
 		fileName = FileName;
+		information = null;
 	}
 
-	public String getId() {
-		return id;
+	public VDirectory(String[] Information) {
+		information = new String[Information.length];
+		information = Information;
+		fileName = null;
+	}
+
+	public String getCode() {
+		return code;
 	}
 
 	public String getName() {
@@ -21,4 +29,7 @@ public class VDirectory {
 		return fileName;
 	}
 
+	public String[] getInformation() {
+		return information;
+	}
 }

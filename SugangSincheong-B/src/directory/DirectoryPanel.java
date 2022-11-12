@@ -8,14 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
-public class DirectoryPanel extends JPanel {
-	PDirectory campus, college, department;
-	DefaultTableModel classModel;
-	String header[] = { "강좌코드", "수업명", "교수명", "학점", "시간표" };
-	String miniheader[] = { "수업명", "시간표" };
+public class DirectoryPanel extends JPanel implements ListSelectionListener {
+	private PDirectory campus, college, department, lecture;
+	private String header[] = { "과목코드", "수업명", "교수명", "학점", "시간표" };
+	private String miniheader[] = { "수업명", "시간표" };
 
 	public DirectoryPanel() {
 		setBackground(Color.LIGHT_GRAY);
@@ -30,7 +32,6 @@ public class DirectoryPanel extends JPanel {
 
 		campus = new PDirectory("캠퍼스");
 		ChooseBeforeLecture.add(new JScrollPane(campus));
-		campus.setData("root");
 
 		college = new PDirectory("대학");
 		ChooseBeforeLecture.add(new JScrollPane(college));
@@ -38,10 +39,8 @@ public class DirectoryPanel extends JPanel {
 		department = new PDirectory("학과");
 		ChooseBeforeLecture.add(new JScrollPane(department));
 
-		classModel = new DefaultTableModel(header, 0);
-		JTable classTable = new JTable(classModel);
-		JScrollPane classScroll = new JScrollPane(classTable);
-		directory.add(classScroll);
+		lecture = new PDirectory(header);
+		directory.add(new JScrollPane(lecture));
 
 		JPanel sinCheong = new JPanel();
 		sinCheong.setLayout(new GridLayout(1, 2));
@@ -80,5 +79,33 @@ public class DirectoryPanel extends JPanel {
 		toFromSucceed.add(takeToSucceed);
 		JButton takeFromSucceed = new JButton("<<");
 		toFromSucceed.add(takeFromSucceed);
+
+		campus.getSelectionModel().addListSelectionListener(this);
+		college.getSelectionModel().addListSelectionListener(this);
+		department.getSelectionModel().addListSelectionListener(this);
+
+		campus.setData("root");
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+		String fileName;
+
+		if (!e.getValueIsAdjusting()) {
+			if (lsm == campus.getSelectionModel()) {
+				fileName = campus.getData(campus.getSelectedRow());
+				if (fileName != null)
+					college.setData(fileName);
+			} else if (lsm == college.getSelectionModel()) {
+				fileName = college.getData(college.getSelectedRow());
+				if (fileName != null)
+					department.setData(fileName);
+			} else if (lsm == department.getSelectionModel()) {
+				fileName = department.getData(department.getSelectedRow());
+				if (fileName != null)
+					lecture.setData(fileName);
+			}
+		}
 	}
 }

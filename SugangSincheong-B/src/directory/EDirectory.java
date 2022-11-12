@@ -16,8 +16,18 @@ public class EDirectory {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String Line = br.readLine();
 			while (Line != null) {
+				VDirectory vDirectory = null;
 				StringTokenizer st = new StringTokenizer(Line);
-				VDirectory vDirectory = new VDirectory(st.nextToken(), st.nextToken(), st.nextToken());
+
+				switch (st.countTokens()) {
+				case 3:
+					vDirectory = new VDirectory(st.nextToken(), st.nextToken(), st.nextToken());
+					break;
+				case 5:
+					vDirectory = new VDirectory(Line.split(" "));
+					break;
+				}
+
 				vDirectories.add(vDirectory);
 				Line = br.readLine();
 			}
@@ -27,5 +37,4 @@ public class EDirectory {
 		}
 		return vDirectories;
 	}
-
 }

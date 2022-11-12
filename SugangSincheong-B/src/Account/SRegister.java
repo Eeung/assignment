@@ -3,7 +3,7 @@ package Account;
 import javax.swing.JTextField;
 
 public class SRegister {
-	EAccount eAccount;
+	private EAccount eAccount;
 
 	public SRegister() {
 		eAccount = new EAccount();

@@ -1,8 +1,6 @@
 package Account;
-public class SLogin {
 
-	public SLogin() {
-	}
+public class SLogin {
 
 	public String login(String id, String password) {
 		EAccount eAccount = new EAccount();

@@ -3,7 +3,7 @@ package directory;
 import java.util.Vector;
 
 public class SDirectory {
-	EDirectory eDirectory;
+	private EDirectory eDirectory;
 
 	public SDirectory() {
 		eDirectory = new EDirectory();
