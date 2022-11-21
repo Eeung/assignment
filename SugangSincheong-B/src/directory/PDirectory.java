@@ -13,23 +13,23 @@ public class PDirectory extends JTable {
 	private Vector<VDirectory> vDirectories;
 
 	public PDirectory(String title) {
-		this();
+		this(ListSelectionModel.SINGLE_SELECTION);
 		String header[] = { title };
 		tableModel.setColumnIdentifiers(header);
 	}
 
-	public PDirectory(String[] header) {
-		this();
+	public PDirectory(String[] header, int selectionMode) {
+		this(selectionMode);
 		tableModel.setColumnIdentifiers(header);
 	}
 
-	public PDirectory() {
+	public PDirectory(int selectionMode) {
 		tableModel = new DefaultTableModel(blank, 0) {
 			public boolean isCellEditable(int i, int j) {
 				return false;
 			}
 		};
-		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.getSelectionModel().setSelectionMode(selectionMode);
 		setModel(tableModel);
 	}
 
@@ -49,7 +49,7 @@ public class PDirectory extends JTable {
 		setRowSelectionInterval(0, 0);
 	}
 
-	public String getData(int index) {
+	public String getFile(int index) {
 		if (index >= 0)
 			return vDirectories.get(index).getFileName();
 		return null;

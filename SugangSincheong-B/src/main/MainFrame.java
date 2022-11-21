@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,13 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Account.LoginDialog;
-import directory.DirectoryPanel;
+import directory.SugangPanel;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
 	private LoginDialog logD;
 	private JPanel mainPg, preface;
-	private DirectoryPanel sugangPg;
+	private SugangPanel sugangPg;
 	private JLabel welcome;
 	private JButton LoginB;
 	private Dimension window = new Dimension();
@@ -68,7 +70,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	public void showClassPage() {
-		sugangPg = new DirectoryPanel();
+		sugangPg = new SugangPanel();
 		mainPg.add(sugangPg, BorderLayout.CENTER);
 	}
 
