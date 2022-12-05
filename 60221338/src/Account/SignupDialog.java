@@ -19,21 +19,37 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class SignupDialog extends JDialog implements ActionListener {
 	private JTextField IDinput, PWinput, NMinput;
-	private JTextField informations[] = { IDinput, PWinput, NMinput };
+	private JTextField informations[] = { NMinput };
 
 	// 회원가입
 	private void signup() {
-		String[] info = new String[informations.length];
+		String[] info = new String[informations.length + 2];
 
-		int i = 0;
+		String ID = IDinput.getText();
+		String PW = PWinput.getText();
+		if (ID.equals("") || PW.equals("")) {
+			JOptionPane.showMessageDialog(null, "입력하지 않은 정보가 있습니다. 다시 한번 확인 부탁드립니다.");
+			return;
+		} else if (ID.length() < 4) {
+			JOptionPane.showMessageDialog(null, "입력하신 아이디가 너무 짧습니다.");
+			return;
+		} else if (PW.length() < 4) {
+			JOptionPane.showMessageDialog(null, "입력하신 비밀번호가 너무 짧습니다.");
+			return;
+		}
+		info[0] = ID;
+		info[1] = PW;
+
+		int i = 2;
 		for (JTextField input : informations) {
+			String entered = input.getText();
 			// 빈칸 확인
-			if (input.getText().equals("")) {
+			if (entered.equals("")) {
 				JOptionPane.showMessageDialog(null, "입력하지 않은 정보가 있습니다. 다시 한번 확인 부탁드립니다.");
 				return;
 			}
 
-			info[i] = input.getText();
+			info[i] = entered;
 			i++;
 		}
 
@@ -67,7 +83,7 @@ public class SignupDialog extends JDialog implements ActionListener {
 		ID.setLayout(new BorderLayout());
 		JLabel IDlabel = new JLabel("           아이디:           ");
 		ID.add(IDlabel, BorderLayout.WEST);
-		informations[0] = IDinput = new JTextField();
+		IDinput = new JTextField();
 		ID.add(IDinput);
 		ID.add(new JLabel("           "), BorderLayout.EAST);
 		signupPg.add(ID);
@@ -76,7 +92,7 @@ public class SignupDialog extends JDialog implements ActionListener {
 		PW.setLayout(new BorderLayout());
 		JLabel PWlabel = new JLabel("           비밀번호:       ");
 		PW.add(PWlabel, BorderLayout.WEST);
-		informations[1] = PWinput = new JPasswordField();
+		PWinput = new JPasswordField();
 		PW.add(PWinput);
 		PW.add(new JLabel("           "), BorderLayout.EAST);
 		signupPg.add(PW);
@@ -85,13 +101,27 @@ public class SignupDialog extends JDialog implements ActionListener {
 		NM.setLayout(new BorderLayout());
 		JLabel NMlabel = new JLabel("           이름:               ");
 		NM.add(NMlabel, BorderLayout.WEST);
-		informations[2] = NMinput = new JTextField();
+		informations[0] = NMinput = new JTextField();
 		NM.add(NMinput);
 		NM.add(new JLabel("           "), BorderLayout.EAST);
 		signupPg.add(NM);
 
 		// 아이디, 비밀번호 입력문자 수 제한
-		for (int i = 0; i < informations.length; i++) {
+		IDinput.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent ke) {
+				JTextField src = (JTextField) ke.getSource();
+				if (src.getText().length() >= 10)
+					ke.consume();
+			}
+		});
+		PWinput.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent ke) {
+				JTextField src = (JTextField) ke.getSource();
+				if (src.getText().length() >= 15)
+					ke.consume();
+			}
+		});
+		for (int i = 0; i < informations.length; i++) { // 기타 계정 정보
 			informations[i].addKeyListener(new KeyAdapter() {
 				public void keyTyped(KeyEvent ke) {
 					JTextField src = (JTextField) ke.getSource();

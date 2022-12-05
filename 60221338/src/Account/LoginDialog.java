@@ -83,7 +83,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 		IDinput.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent ke) {
 				JTextField src = (JTextField) ke.getSource();
-				if (src.getText().length() >= 15)
+				if (src.getText().length() >= 10)
 					ke.consume();
 			}
 		});

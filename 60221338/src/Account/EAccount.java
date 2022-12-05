@@ -49,7 +49,7 @@ public class EAccount {
 	// 새로운 계정을 쓰기
 	public void writeAccount(String[] accountInfo) {
 		try {
-			FileOutputStream fos = new FileOutputStream(file);
+			FileOutputStream writeExcelFile = new FileOutputStream(file);
 
 			XSSFSheet sheet = workbook.getSheet("ac");
 			int lowestRow = sheet.getLastRowNum();
@@ -58,7 +58,7 @@ public class EAccount {
 				row.createCell(i).setCellValue(accountInfo[i]);
 			}
 
-			workbook.write(fos);
+			workbook.write(writeExcelFile);
 			createUserFile(accountInfo[0]);
 		} catch (Exception e) {
 			e.printStackTrace();

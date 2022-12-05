@@ -44,12 +44,12 @@ public class SAccount {
 	public String encrypt(String password) {
 		StringBuilder builder = new StringBuilder();
 		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(password.getBytes());
+			MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
+			msgDigest.update(password.getBytes());
 
-			byte[] msgStr = md.digest();
+			byte[] msgByte = msgDigest.digest();
 
-			for (byte b : msgStr)
+			for (byte b : msgByte)
 				builder.append(String.format("%02x", b));
 
 		} catch (NoSuchAlgorithmException e) {
@@ -60,15 +60,15 @@ public class SAccount {
 
 	// 아이디 중복 확인
 	public boolean idDuplicationTest(String id) {
-		VAccount vLogin = eAccount.getLoginInfo();
+		VAccount vAccount = eAccount.getLoginInfo();
 
-		while (vLogin != null) {
+		while (vAccount != null) {
 
-			if (vLogin.getid().equals(id)) {
+			if (vAccount.getid().equals(id)) {
 				return false;
 			}
 
-			vLogin = eAccount.getLoginInfo();
+			vAccount = eAccount.getLoginInfo();
 		}
 		return true;
 	}
