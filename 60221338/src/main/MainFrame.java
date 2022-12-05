@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import directory.SugangPanel;
+import language.Text;
 import main.Main.ActionHandler;
 
 @SuppressWarnings("serial")
@@ -20,10 +22,11 @@ public class MainFrame extends JFrame {
 	private JLabel welcome;
 	private JButton LoginB;
 	private Dimension window = new Dimension();
+	private String language[] = { "한국어", "English" };
 
 	public MainFrame(ActionHandler action) {
 		// 메인 프레임 설정
-		setTitle("테스트");
+		setTitle(Text.getTitle());
 		setSize(1280, 720);
 		window = getSize();
 		setMinimumSize(window);
@@ -35,17 +38,28 @@ public class MainFrame extends JFrame {
 		mainPg.setLayout(new BorderLayout());
 
 		preface = new JPanel();
+
 		mainPg.add(preface, "North");
 		preface.setBackground(Color.WHITE);
 		preface.setLocation(0, 0);
-		preface.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		preface.setLayout(new BorderLayout());
 
-		welcome = new JLabel("로그인이 필요합니다.");
-		preface.add(welcome);
+		JPanel nc = new JPanel();
+		nc.setBackground(Color.WHITE);
+		nc.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		preface.add(nc);
+
+		JComboBox<String> langCombo = new JComboBox<String>(language);
+		langCombo.addActionListener(action);
+		langCombo.setActionCommand("changeLanguage");
+		preface.add(langCombo, BorderLayout.WEST);
+
+		welcome = new JLabel(Text.getNeedLogin());
+		nc.add(welcome);
 
 		// 로그인 버튼 생성
-		LoginB = new JButton("로그인");
-		preface.add(LoginB);
+		LoginB = new JButton(Text.getLoginButton());
+		nc.add(LoginB);
 		LoginB.setActionCommand("intoLoginPage");
 		LoginB.addActionListener(action);
 
@@ -54,15 +68,16 @@ public class MainFrame extends JFrame {
 	}
 
 	public void showLoginPage(String name) {
-		welcome.setText(name + "님, 환영합니다.");
-		LoginB.setText("로그아웃");
+		Text.setName(name);
+		welcome.setText(Text.getWelcome());
+		LoginB.setText(Text.getLogoutButton());
 		LoginB.setActionCommand("doLogout");
 		showClassPage();
 	}
 
 	public void logout() {
-		welcome.setText("로그인이 필요합니다.");
-		LoginB.setText("로그인");
+		welcome.setText(Text.getNeedLogin());
+		LoginB.setText(Text.getLoginButton());
 		LoginB.setActionCommand("intoLoginPage");
 		sugangPg.setVisible(false);
 		mainPg.remove(sugangPg);
@@ -75,5 +90,17 @@ public class MainFrame extends JFrame {
 
 	public void sugangInit(String id) {
 		sugangPg.init(id);
+	}
+
+	public void changeLanguage() {
+		setTitle(Text.getTitle());
+		if (LoginB.getActionCommand().toString().equals("intoLoginPage")) {
+			welcome.setText(Text.getNeedLogin());
+			LoginB.setText(Text.getLoginButton());
+		} else {
+			welcome.setText(Text.getWelcome());
+			LoginB.setText(Text.getLogoutButton());
+		}
+
 	}
 }

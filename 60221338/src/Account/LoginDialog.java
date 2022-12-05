@@ -19,19 +19,19 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class LoginDialog extends JDialog implements ActionListener {
 
-	private SLogin sLogin;
+	private SAccount sAccount;
 	private JTextField IDinput, PWinput;
 	public String name[] = null;
 
 	// 로그인 성공 및 실패
 	public String[] login() {
 		String id = IDinput.getText();
-
 		String password = PWinput.getText();
-		sLogin = new SLogin();
+		sAccount = new SAccount();
 
-		String name = sLogin.login(id, password);
+		String name = sAccount.login(id, password);
 
+		// 로그인 결과
 		switch (name) {
 		case "non-Pass" -> JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.");
 		case "not-exist" -> JOptionPane.showMessageDialog(null, "존재하지 않는 아이디 입니다. 입력하신 내용을 다시 확인해주세요.");
@@ -43,6 +43,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 		}
 		}
 
+		// 로그인 실패 시, 초기화
 		IDinput.setText("");
 		PWinput.setText("");
 		return null;

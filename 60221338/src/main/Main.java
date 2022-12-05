@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 import Account.LoginDialog;
+import language.Text;
 
 public class Main {
 	private LoginDialog logD;
@@ -16,6 +18,7 @@ public class Main {
 	}
 
 	public void initialize() {
+		new Text("ÇÑ±¹¾î");
 		action = new ActionHandler();
 		mainframe = new MainFrame(action);
 	}
@@ -31,9 +34,15 @@ public class Main {
 	}
 
 	public class ActionHandler implements ActionListener {
+		@SuppressWarnings("rawtypes")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String actionCommand = ((JButton) e.getSource()).getActionCommand();
+			String actionCommand = "";
+			try {
+				actionCommand = ((JButton) e.getSource()).getActionCommand();
+			} catch (ClassCastException ex) {
+				actionCommand = ((JComboBox) e.getSource()).getActionCommand();
+			}
 
 			switch (actionCommand) {
 			case "intoLoginPage":
@@ -43,6 +52,10 @@ public class Main {
 			case "doLogout":
 				mainframe.logout();
 				break;
+			case "changeLanguage":
+				String language = ((JComboBox) e.getSource()).getSelectedItem().toString();
+				Text.readFile(language);
+				mainframe.changeLanguage();
 			}
 		}
 	}

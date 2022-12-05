@@ -19,20 +19,33 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class SignupDialog extends JDialog implements ActionListener {
 	private JTextField IDinput, PWinput, NMinput;
-	private JTextField[] informations = new JTextField[3];
+	private JTextField informations[] = { IDinput, PWinput, NMinput };
 
+	// 회원가입
 	private void signup() {
+		String[] info = new String[informations.length];
+
+		int i = 0;
 		for (JTextField input : informations) {
+			// 빈칸 확인
 			if (input.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "입력하지 않은 정보가 있습니다. 다시 한번 확인 부탁드립니다.");
 				return;
 			}
+
+			info[i] = input.getText();
+			i++;
 		}
-		SRegister sRegister = new SRegister();
-		if (sRegister.idDuplicationTest(IDinput.getText())) {
-			sRegister.signup(informations);
+
+		// 중복 확인
+		SAccount sAccount = new SAccount();
+		if (sAccount.idDuplicationTest(IDinput.getText())) {
+			// 중복 없음
+			sAccount.signup(info);
+			JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
 			dispose();
 		} else {
+			// 중복
 			JOptionPane.showMessageDialog(null, "이미 있는 아이디입니다.");
 			IDinput.setText("");
 		}
@@ -44,7 +57,7 @@ public class SignupDialog extends JDialog implements ActionListener {
 		setSize(640, 480);
 		setMinimumSize(new Dimension(640, 400));
 
-		// 로그인 페이지 설정
+		// 회원가입 페이지 설정
 		JPanel signupPg = new JPanel();
 		add(signupPg);
 		signupPg.setLayout(new GridLayout(6, 1, 0, 40));
