@@ -1,8 +1,11 @@
 package Account;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -18,7 +21,6 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class LoginDialog extends JDialog implements ActionListener {
-
 	private SAccount sAccount;
 	private JTextField IDinput, PWinput;
 	public String name[] = null;
@@ -52,32 +54,33 @@ public class LoginDialog extends JDialog implements ActionListener {
 	public LoginDialog() {
 		setTitle("로그인");
 		setModal(true);
-		setSize(640, 400);
-		setMinimumSize(new Dimension(640, 400));
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(screen.width / 5, screen.height / 4 + screen.height / 27);
+		setMinimumSize(new Dimension(screen.width / 5, screen.height / 4 + screen.height / 27));
 
 		// 로그인 페이지 설정
 		JPanel loginPg = new JPanel();
 		add(loginPg);
-		loginPg.setLayout(new GridLayout(5, 1, 0, 40));
-		loginPg.add(new JPanel());
+		loginPg.setLayout(new BorderLayout(0, 20));
+		loginPg.add(new JPanel(), BorderLayout.NORTH);
 
-		JPanel ID = new JPanel();
-		ID.setLayout(new BorderLayout());
-		JLabel IDlabel = new JLabel("           아이디:           ");
-		ID.add(IDlabel, BorderLayout.WEST);
+		JPanel inputArea = new JPanel(new BorderLayout(5, 15));
+
+		JPanel label = new JPanel(new GridBagLayout());
+		JLabel IDlabel = new JLabel("아이디:");
+		addCon(IDlabel, 0, 0, label);
+		JLabel PWlabel = new JLabel("비밀번호: ");
+		addCon(PWlabel, 0, 1, label);
+		inputArea.add(label, BorderLayout.WEST);
+
+		JPanel textField = new JPanel(new GridBagLayout());
 		IDinput = new JTextField();
-		ID.add(IDinput);
-		ID.add(new JLabel("           "), BorderLayout.EAST);
-		loginPg.add(ID);
-
-		JPanel PW = new JPanel();
-		PW.setLayout(new BorderLayout());
-		JLabel PWlabel = new JLabel("           비밀번호:       ");
-		PW.add(PWlabel, BorderLayout.WEST);
+		addCon(IDinput, 0, 0, textField);
 		PWinput = new JPasswordField();
-		PW.add(PWinput);
-		PW.add(new JLabel("           "), BorderLayout.EAST);
-		loginPg.add(PW);
+		addCon(PWinput, 0, 1, textField);
+		inputArea.add(textField);
+
+		loginPg.add(inputArea);
 
 		// 아이디, 비밀번호 입력문자 수 제한
 		IDinput.addKeyListener(new KeyAdapter() {
@@ -96,8 +99,8 @@ public class LoginDialog extends JDialog implements ActionListener {
 		});
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new BorderLayout(5, 0));
-		loginPg.add(buttons);
+		buttons.setLayout(new BorderLayout());
+		inputArea.add(buttons, BorderLayout.SOUTH);
 
 		JButton confirm = new JButton("로그인");
 		getRootPane().setDefaultButton(confirm);
@@ -110,10 +113,27 @@ public class LoginDialog extends JDialog implements ActionListener {
 		register.addActionListener(this);
 		buttons.add(register, BorderLayout.EAST);
 
-		loginPg.add(new JPanel());
+		JButton findInfo = new JButton("찾기");
+		findInfo.setActionCommand("findIt");
+		findInfo.addActionListener(this);
+		buttons.add(findInfo, BorderLayout.WEST);
+
+		loginPg.add(new JPanel(), BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
+	}
+
+	public void addCon(Component c, int x, int y, JPanel panel) {
+		GridBagConstraints gridBagCon = new GridBagConstraints();
+
+		gridBagCon.fill = GridBagConstraints.HORIZONTAL;
+		gridBagCon.weightx = 1;
+		gridBagCon.weighty = 1;
+		gridBagCon.gridx = x;
+		gridBagCon.gridy = y;
+
+		panel.add(c, gridBagCon);
 	}
 
 	@Override
@@ -126,6 +146,9 @@ public class LoginDialog extends JDialog implements ActionListener {
 			break;
 		case "signUp":
 			new SignupDialog();
+			break;
+		case "findIt":
+			new FindinfoDialog();
 			break;
 		}
 	}

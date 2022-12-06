@@ -22,7 +22,6 @@ public class MainFrame extends JFrame {
 	private JLabel welcome;
 	private JButton LoginB;
 	private Dimension window = new Dimension();
-	private String language[] = { "한국어", "English" };
 
 	public MainFrame(ActionHandler action) {
 		// 메인 프레임 설정
@@ -49,7 +48,10 @@ public class MainFrame extends JFrame {
 		nc.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		preface.add(nc);
 
+		String language[] = Text.readFileName();
+
 		JComboBox<String> langCombo = new JComboBox<String>(language);
+		langCombo.setSelectedItem("한국어");
 		langCombo.addActionListener(action);
 		langCombo.setActionCommand("changeLanguage");
 		preface.add(langCombo, BorderLayout.WEST);

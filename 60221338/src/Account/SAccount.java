@@ -2,6 +2,7 @@ package Account;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class SAccount {
 	EAccount eAccount;
@@ -71,5 +72,25 @@ public class SAccount {
 			vAccount = eAccount.getLoginInfo();
 		}
 		return true;
+	}
+
+	public String[] FindIds(String name) {
+		VAccount vAccount = eAccount.getLoginInfo();
+		ArrayList<String> names = new ArrayList<String>();
+
+		while (vAccount != null) {
+			if (name.equals(vAccount.getName()))
+				names.add(vAccount.getid());
+			vAccount = eAccount.getLoginInfo();
+		}
+
+		if (names.size() == 0)
+			return null;
+		String[] result = new String[names.size()];
+		int i = 0;
+		for (String NM : names) {
+			result[i++] = NM;
+		}
+		return result;
 	}
 }

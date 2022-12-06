@@ -3,6 +3,7 @@ package Account;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -70,40 +71,40 @@ public class SignupDialog extends JDialog implements ActionListener {
 	public SignupDialog() {
 		setTitle("회원가입");
 		setModal(true);
-		setSize(640, 480);
-		setMinimumSize(new Dimension(640, 400));
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		final int n = 19; // 정보 하나 추가할 때마다 n이 11 증가
+		setSize(screen.width / 5, screen.height / 4 + (screen.height * n) / 216);
+		setMinimumSize(new Dimension(screen.width / 5, screen.height / 4 + (screen.height * n) / 216));
 
 		// 회원가입 페이지 설정
 		JPanel signupPg = new JPanel();
 		add(signupPg);
-		signupPg.setLayout(new GridLayout(6, 1, 0, 40));
+		signupPg.setLayout(new GridLayout(6, 1, 0, 15));
 		signupPg.add(new JPanel());
 
 		JPanel ID = new JPanel();
 		ID.setLayout(new BorderLayout());
-		JLabel IDlabel = new JLabel("           아이디:           ");
+		JLabel IDlabel = new JLabel("아이디:           ");
 		ID.add(IDlabel, BorderLayout.WEST);
 		IDinput = new JTextField();
 		ID.add(IDinput);
-		ID.add(new JLabel("           "), BorderLayout.EAST);
+
 		signupPg.add(ID);
 
 		JPanel PW = new JPanel();
 		PW.setLayout(new BorderLayout());
-		JLabel PWlabel = new JLabel("           비밀번호:       ");
+		JLabel PWlabel = new JLabel("비밀번호:       ");
 		PW.add(PWlabel, BorderLayout.WEST);
 		PWinput = new JPasswordField();
 		PW.add(PWinput);
-		PW.add(new JLabel("           "), BorderLayout.EAST);
 		signupPg.add(PW);
 
 		JPanel NM = new JPanel();
 		NM.setLayout(new BorderLayout());
-		JLabel NMlabel = new JLabel("           이름:               ");
+		JLabel NMlabel = new JLabel("이름:               ");
 		NM.add(NMlabel, BorderLayout.WEST);
 		informations[0] = NMinput = new JTextField();
 		NM.add(NMinput);
-		NM.add(new JLabel("           "), BorderLayout.EAST);
 		signupPg.add(NM);
 
 		// 아이디, 비밀번호 입력문자 수 제한

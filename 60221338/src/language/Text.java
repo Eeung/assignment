@@ -14,11 +14,16 @@ public class Text {
 		readFile(language);
 	}
 
+	public static String[] readFileName() {
+		File langDir = new File("language/");
+		return langDir.list();
+	}
+
 	@SuppressWarnings("resource")
 	public static void readFile(String language) {
 		try {
 			recentLang = language;
-			File file = new File("language/" + language + ".txt");
+			File file = new File("language/" + language);
 			BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
 
 			String Line = bf.readLine();
